@@ -1,0 +1,121 @@
+﻿@page "/"
+
+@inject NavigationManager NavManager
+
+<style>
+    #header {
+        margin-top: 80px;
+        margin-bottom: 20px;
+    }
+
+    #info-header {
+        margin-top: 20px;
+    }
+
+    #info-card {
+        border: 2px solid lightgrey;
+        border-radius: 10px;
+        margin-top: 10px;
+        height: 320px;
+        width: 500px;
+        position: relative;
+    }
+
+    #info-text {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+</style>
+<body>
+    <img src="/Images/Gruppe2.jpg" alt="Gruppe" style="width:100%;height:60%;" />
+    <div id="header">
+        <center>
+            <img src="/Images/MARS.png" alt="Hauptbild" style="width:1000px;height:250px;" />
+        </center>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div id="info-card">
+                    <div id="info-header">
+                        <center>
+                            <h3>Einführung</h3>
+                        </center>
+                    </div>
+                    <div id="info-text">
+                        <center>
+                            <p>
+                                Willkommen bei MARS (Marketing Associated Research Simulation) sollten Sie bereits angemeldet sein können Sie direkt mit dem Berechnen loslegen.
+                                Anderfalls können Sie sich über den Button oben rechts für die Seite registrieren und können nach eine kurzen Bestätigung sofort loslegen.
+                            </p>
+                            <p>
+
+                                Wir wünschen ihnen viel Spaß mit unserer Website.
+                            </p>
+
+                        </center>
+                        <div>
+                            <NavLink href="Info">
+                                <button class="btn btn-primary" style="position: absolute; right: 10px; bottom: 10px;">Touchpoint Info</button>
+                            </NavLink>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div id="info-card">
+                    <div id="info-header">
+                        <center>
+                            <h3>Neue Berechnung</h3>
+                        </center>
+                    </div>
+                    <div id="info-text">
+                        <center>
+                            <p>
+                                Nutzen Sie gerne die Leiste an der linken Seite der Homepage um eine neue Berechnung durchzuführen.
+                                Alternativ können Sie auch mit einem Klick auf den untenstehenden Button auf die entsprechende Seite gelangen.
+                            </p>
+
+                        </center>
+                        <div>
+                            <NavLink href="touchpoints">
+                                <button class="btn btn-primary" style="position: absolute; right: 10px; bottom: 10px;">Neue Berechnung</button>
+                            </NavLink>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style="position:relative;bottom:1px;left:10px">
+                <img src="/Images/Welfen.png" alt="Welfen" />
+                <a href="https://www.instagram.com/welfenakademie/?hl=de"> <img border="0" alt="Insta_Welfen" src="/Images/Insta.png" width="60" height="60"></a>
+            </div>
+
+            <div style="position:relative; bottom:0px; left:500px;">
+                <img src="/Images/Leibniz.png" alt="Leibniz" />
+                <a href="https://www.instagram.com/atlas_projekt/">
+                    <img border="0" alt="Insta_Leibniz" src="/Images/Insta.png" width="60" height="60" />
+                </a>
+                <a href="https://www.facebook.com/AtlasProjektLA/">
+                    <img border="0" alt="Facebook_Leibniz" src="/Images/Facebook.jpg" width="60" height="60" />
+                </a>
+                <a href="https://atlasproject.de/">
+                    <img border="0" alt="ATLAS" src="/Images/Atlas.png" />
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+@code {
+
+    private void NavToCampaign()
+    {
+        NavManager.NavigateTo("/campaign");
+    }
+}

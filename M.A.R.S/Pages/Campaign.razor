@@ -1,0 +1,377 @@
+﻿@page "/campaign"
+
+@using M.A.R.S.ViewModel
+@using M.A.R.S.Calculators
+
+@inject NavigationManager NavManager
+
+<style>
+    #notAuthorized {
+        top: 50%;
+        left: 50%;
+        margin-top: 50px;
+    }
+</style>
+
+<h3>Kampagne</h3>
+
+<AuthorizeView>
+    <Authorized>
+        @if (this.ConfigVM == null || this.CampaignRequestVM == null)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <p>
+                <div>
+                    <label>
+                        Budget
+                        <input type="number" class="form-control" min="@this.MinBudget"
+                               oninput="validity.valid || (value = @this.MinBudget);"
+                               onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                               @bind-value="this.Budget" @onfocusout="SetOpenBudget" />
+                    </label>
+                    <label>
+                        Offenes Budget
+                        <input type="text" class="form-control" min="0" disabled @bind-value="this.OpenBudget" />
+                    </label>
+                </div>
+            </p>
+
+            <table class="table header-fixed">
+                <thead>
+                    <tr>
+                        <th>Touchpoint</th>
+                        <th>Input</th>
+                        <th>Anteil</th>
+                        <th>Impact</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td width="20%"></td>
+                        <td width="20%"></td>
+                        <td width="20%"></td>
+                        <td width="20%"></td>
+
+                    </tr>
+                    @if (this.CampaignRequestVM.TPRadio)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.Radio.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.Radio.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid||(value=@(this.ConfigVM.Radio.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align: right;"
+                                       @bind-value="this.ConfigVM.Radio.InputBudget" @onfocusout="CalcRadio" />
+                            </td>
+                            <td>@this.ConfigVM.Radio.Percentage</td>
+                            <td>@this.ConfigVM.Radio.OutputAsString Impressions</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPTV)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.TV.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.TV.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.TV.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.TV.InputBudget" @onfocusout="CalcTV" />
+                            </td>
+                            <td>@this.ConfigVM.TV.Percentage</td>
+                            <td>@this.ConfigVM.TV.OutputAsString Impressions</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPPrint)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.Print.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.Print.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.Print.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.Print.InputBudget" @onfocusout="CalcPrint" />
+                            </td>
+                            <td>@this.ConfigVM.Print.Percentage</td>
+                            <td>@this.ConfigVM.Print.OutputAsString Impressions</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPCoupon)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.Coupon.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.Coupon.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.Coupon.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.Coupon.InputBudget" @onfocusout="CalcCoupon" />
+                            </td>
+                            <td>@this.ConfigVM.Coupon.Percentage</td>
+                            <td>@this.ConfigVM.Coupon.OutputAsString Conversions</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPBanner)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.Banner.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.Banner.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.Banner.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.Banner.InputBudget" @onfocusout="CalcBanner" />
+                            </td>
+                            <td>@this.ConfigVM.Banner.Percentage</td>
+                            <td>@this.ConfigVM.Banner.OutputAsString Visits</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPSM)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.SM.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.SM.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.SM.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.SM.InputBudget" @onfocusout="CalcSM" />
+                            </td>
+                            <td>@this.ConfigVM.SM.Percentage</td>
+                            <td>@this.ConfigVM.SM.OutputAsString Visits</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPEMail)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.EMail.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.EMail.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.EMail.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.EMail.InputBudget" @onfocusout="CalcEMail" />
+                            </td>
+                            <td>@this.ConfigVM.EMail.Percentage</td>
+                            <td>@this.ConfigVM.EMail.OutputAsString Visits</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPSEA)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.SEA.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.SEA.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.SEA.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.SEA.InputBudget" @onfocusout="CalcSEA" />
+                            </td>
+                            <td>@this.ConfigVM.SEA.Percentage</td>
+                            <td>@this.ConfigVM.SEA.OutputAsString Visits</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPWebsite)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.Website.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.Website.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.Website.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.Website.InputBudget" @onfocusout="CalcWebsiteAndShop" />
+                            </td>
+                            <td>@this.ConfigVM.Website.Percentage</td>
+                            <td>@this.ConfigVM.Website.OutputAsString Visits für Online-Shop</td>
+                        </tr>
+                    }
+                    @if (this.CampaignRequestVM.TPShop)
+                    {
+                        <tr>
+                            <td>@this.ConfigVM.Shop.Name</td>
+                            <td>
+                                <input type="number" class="form-control form-control-sm" min="0" max="@(this.ConfigVM.Shop.InputBudget + this.OpenBudget)"
+                                       oninput="validity.valid || (value =@(this.ConfigVM.Shop.InputBudget + this.OpenBudget));"
+                                       onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+                                       style="text-align:right;"
+                                       @bind-value="this.ConfigVM.Shop.InputBudget" @onfocusout="CalcWebsiteAndShop" />
+                            </td>
+                            <td>@this.ConfigVM.Shop.Percentage</td>
+                            <td>@this.ConfigVM.Shop.ConversionsAsString Conversions</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="row">
+                <div>
+                    <button class="btn btn-primary" style="float:right" @onclick="SaveCampaign">Speichern</button>
+                </div>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="container" id="notAuthorized">
+            <p>Bitte melde dich an um M.A.R.S. zu nutzen.</p>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
+    private HttpClient Http;
+    private Calculator Calculator;
+
+    private double Budget;
+    private double OpenBudget;
+    private double MinBudget;
+
+    private CampaignRequestVM CampaignRequestVM;
+    private ConfigVM ConfigVM;
+
+    private string CurrentUser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserName();
+        if(!string.IsNullOrEmpty(this.CurrentUser))
+        {
+            this.Http = new HttpClient();
+            this.Calculator = new Calculator();
+            this.CampaignRequestVM = await this.Http.GetJsonAsync<CampaignRequestVM>($"{NavManager.BaseUri}Request/{CurrentUser}");
+            this.ConfigVM = await this.Http.GetJsonAsync<ConfigVM>($"{NavManager.BaseUri}KPIConfig/{CurrentUser}");
+        }
+    }
+
+    private async Task GetUserName()
+    {
+        var authState = await AuthenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            this.CurrentUser = user.Identity.Name;
+        }
+    }
+
+    public async void SaveCampaign()
+    {
+        this.ConfigVM.Budget.Budget = this.Budget;
+        this.ConfigVM.Budget.OpenBudget = this.OpenBudget;
+        this.ConfigVM.Date = DateTime.Now;
+
+        HttpResponseMessage response = await this.Http.PostAsJsonAsync<ConfigVM>($"{NavManager.BaseUri}Campaign", this.ConfigVM);
+
+        while(!response.IsSuccessStatusCode)
+        {
+            //potential Deadlock
+        }
+        NavManager.NavigateTo("piecharts");
+    }
+
+    private void SetOpenBudget()
+    {
+        this.OpenBudget = this.Budget - this.ConfigVM.Radio.InputBudget
+                                      - this.ConfigVM.TV.InputBudget
+                                      - this.ConfigVM.Print.InputBudget
+                                      - this.ConfigVM.Coupon.InputBudget
+                                      - this.ConfigVM.Banner.InputBudget
+                                      - this.ConfigVM.SM.InputBudget
+                                      - this.ConfigVM.EMail.InputBudget
+                                      - this.ConfigVM.SEA.InputBudget
+                                      - this.ConfigVM.Website.InputBudget
+                                      - this.ConfigVM.Shop.InputBudget;
+
+        this.MinBudget = this.ConfigVM.Radio.InputBudget
+                       + this.ConfigVM.TV.InputBudget
+                       + this.ConfigVM.Print.InputBudget
+                       + this.ConfigVM.Coupon.InputBudget
+                       + this.ConfigVM.Banner.InputBudget
+                       + this.ConfigVM.SM.InputBudget
+                       + this.ConfigVM.EMail.InputBudget
+                       + this.ConfigVM.SEA.InputBudget
+                       + this.ConfigVM.Website.InputBudget
+                       + this.ConfigVM.Shop.InputBudget;
+
+        CalcPercentages();
+    }
+
+    private void CalcPercentages()
+    {
+        try
+        {
+            this.ConfigVM.Radio.Percentage = (this.ConfigVM.Radio.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.TV.Percentage = (this.ConfigVM.TV.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.Print.Percentage = (this.ConfigVM.Print.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.Coupon.Percentage = (this.ConfigVM.Coupon.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.Banner.Percentage = (this.ConfigVM.Banner.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.SM.Percentage = (this.ConfigVM.SM.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.EMail.Percentage = (this.ConfigVM.EMail.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.SEA.Percentage = (this.ConfigVM.SEA.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.Website.Percentage = (this.ConfigVM.Website.InputBudget / this.Budget).ToString("P");
+            this.ConfigVM.Shop.Percentage = (this.ConfigVM.Shop.InputBudget / this.Budget).ToString("P");
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception.Message);
+        }
+    }
+
+    private void CalcRadio()
+    {
+        this.ConfigVM = this.Calculator.CalcRadio(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcTV()
+    {
+        this.ConfigVM = this.Calculator.CalcTV(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcPrint()
+    {
+        this.ConfigVM = this.Calculator.CalcPrint(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcCoupon()
+    {
+        this.ConfigVM = this.Calculator.CalcCoupon(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcBanner()
+    {
+        this.ConfigVM = this.Calculator.CalcBanner(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcSM()
+    {
+        this.ConfigVM = this.Calculator.CalcSM(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcEMail()
+    {
+        this.ConfigVM = this.Calculator.CalcEMail(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcSEA()
+    {
+        this.ConfigVM = this.Calculator.CalcSEA(this.ConfigVM);
+        SetOpenBudget();
+    }
+    private void CalcWebsiteAndShop()
+    {
+        this.ConfigVM = this.Calculator.CalcWebsiteAndShop(this.ConfigVM);
+        SetOpenBudget();
+    }
+}

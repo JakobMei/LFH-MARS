@@ -1,0 +1,198 @@
+﻿@page "/info"
+
+@using M.A.R.S.ViewModel
+
+@inject NavigationManager NavManager
+
+<style>
+    #notAuthorized {
+        top: 50%;
+        left: 50%;
+        margin-top: 50px;
+    }
+
+    #info-card {
+        border: 2px solid lightgrey;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    #info-text {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
+    #info-header {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 36px;
+    }
+
+    #info-formel {
+        font-size: 24px;
+        text-align: center;
+    }
+</style>
+
+<h3>Info</h3>
+
+<AuthorizeView>
+    <Authorized>
+        <div id="info-card">
+            <p id="info-header"> 1.     Social Media </p>
+            <p id="info-text">
+                Social Media Marketing beschäftigt sich mit dem Marketing auf sozialen Netzwerken wie Facebook, Instagram, YouTube und weitere Netzwerke. Allein durch Facebook lassen sich so 1,9 Milliarden Nutzer erreichen.
+            </p>
+
+            <p id="info-formel">
+                Formel: TKP * 1000 * CTR = Visits
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">   2. Search Engine Advertising </p>
+            <p id="info-text">
+                Search Engine Advertising beschäftigt sich mit Werbeanzeigen bei Suchmaschinen (z.B. Google) um den Traffic auf einer Webseite zu erhöhen, indem besagte Webseite ganz oben bei den Ergebnissen angezeigt wird.
+            </p>
+
+            <p id="info-formel">
+                Formel:  Budget / CPC = Visits
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">3. E-Mail </p>
+            <p id="info-text">
+                Das Medium E-Mail wird im Marketing, speziell im Online-Marketing für den Ausbau und die Festigung der Kundenkontakte der Unternehmen genutzt. Generell kann in zwei Arten des E-Mail-Marketings unterschieden werden. Bei der One-to-one-Kommunikation wird eine Person gezielt angesprochen. Bei der One-to-many-Kommunikation werden beliebig viele Personen angesprochen.
+            </p>
+
+            <p id="info-formel">
+                Formel: Anzahl Mails * (100-Bounce Rate) * Öffnungsrate * CTR = Visits
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">4. Banner </p>
+            <p id="info-text">
+                Bannerwerbung umfasst Buttons, Banner, Videos, Animationen oder Bilder und gliedert sich in grafische und animierte Designs. Außerdem gibt es statische und dynamische Banner. Statische Banner sind fest auf der Website eingebunden, wobei dynamische Banner Pop-up-Fenster oder Banner, die beim Scrollen dem Nutzer weiterhin angezeigt werden, sein können.
+            </p>
+
+            <p id="info-formel">
+                Formel: TKP * 1000 * CTR = Visits
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">5. TV </p>
+            <p id="info-text">
+                TV-Werbung ist nach wie vor die beliebteste Art der Werbetreibenden, um mit der entstehenden, hohen Reichweite auf ihr Produkt aufmerksam zu machen. In Deutschland fällt die höchste Summe der Gesamtwerbeausgaben auf TV-Werbung.
+            </p>
+
+            <p id="info-formel">
+                Formel: (TKS * 1000) / OTS = Impressions
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">6. Print </p>
+            <p id="info-text">
+                Sammelbegriff für alle auf Papier gedruckten Medien. Meist werden Zeitungen, Zeitschriften, Bücher und sonstige Druckerzeugnisse (wie z.B. Beilagen, Kataloge, Prospekte und Anzeigenblätter) unterschieden.
+            </p>
+
+            <p id="info-formel">
+                Formel: Budget / (TKP * 1000) = Impressions
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">7. Radio </p>
+            <p id="info-text">
+                Hörfunk bzw. Radio ist ein Medium zur Verbreitung von Informationen und Unterhaltung in Form von Tönen, wie Musik und Sprache. Hörfunk kann mit einem traditionellen Radiogerät empfangen werden, sowie mit anderen Geräten der Unterhaltungs- und Gebrauchselektronik.
+            </p>
+
+            <p id="info-formel">
+                Formel: TKP * 1000 = Impressions
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">8. Coupons </p>
+            <p id="info-text">
+                Coupons sind Rabattgutscheine verschiedener Anbieter, welche für bestimmte Produkte und Dienstleistungen Preisnachlässe bieten. Sie sind meist kostenlos verfügbar und enthalten einen Code, welcher den Preisnachlass über einen bestimmten Gültigkeitszeitraum beim Kauf eines Produktes anrechnet.
+            </p>
+
+            <p id="info-formel">
+                Formel: TKP * 1000 * CTR * Conversionrate * ROPO = Conversions (mit Ropo)
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">9. Website </p>
+            <p id="info-text">
+                Eine Website wird vom User in einem Browser aufgerufen und ist in der Regel der Internetauftritt eines gesamten Unternehmens.
+            </p>
+
+            <p id="info-formel">
+                Formel: Visits (aller Touchpoints) ∗ Bouncerate ∗ CTR = Visits (der Website)
+            </p>
+
+        </div>
+
+        <div id="info-card">
+            <p id="info-header">10. Onlineshop </p>
+            <p id="info-text">
+                Im Onlineshop soll letztendlich der Kunde den Kauf durchführen. In Onlineshops besteht zunächst eine Übersicht über die angebotenen Artikel. Man kann sich die Artikel ansehen und oft auch Bewertungen durchlesen und Bilder sowie weitere Produktinformationen erlangen. Über den Warenkorb wird am Ende bezahlt und der Kunde schließt damit den Kaufprozess ab.
+            </p>
+
+            <p id="info-formel">
+                Formel: Visits ∗ Bounce Rate ∗ Warenkorbabbruchrate ∗ CTR = Conversions
+            </p>
+
+        </div>
+
+    </Authorized>
+    <NotAuthorized>
+        <div class="container" id="notAuthorized">
+            <p>Bitte melde dich an um M.A.R.S. zu nutzen.</p>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
+    private string CurrentUser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserName();
+        if (!string.IsNullOrEmpty(this.CurrentUser))
+        {
+
+        }
+    }
+
+    private async Task GetUserName()
+    {
+        var authState = await AuthenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            this.CurrentUser = user.Identity.Name;
+        }
+    }
+}

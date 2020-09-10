@@ -1,0 +1,145 @@
+﻿@page "/piecharts"
+
+@using M.A.R.S.ViewModel
+@using M.A.R.S.PublicEnums
+
+@inject NavigationManager NavManager
+@inject IJSRuntime JsRuntime
+
+<style>
+    #notAuthorized {
+        top: 50%;
+        left: 50%;
+        margin-top: 50px;
+    }
+
+    #header {
+        margin-bottom: 20px;
+    }
+
+    #charts {
+        margin-top: 50px;
+    }
+
+    #chartdiv1 {
+        width: 100%;
+        height: 500px;
+    }
+
+    #chartdiv2 {
+        width: 100%;
+        height: 500px;
+    }
+</style>
+
+<h3 id="header">Graphische Auswertung</h3>
+
+<AuthorizeView>
+    <Authorized>
+        <!--Display PieCharts here!-->
+        @if (this.PieElementsInput == null && this.PieElementsOutput == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (this.PieElementsInput.Count < 1 && this.PieElementsOutput.Count < 1)
+        {
+            <div class="container" id="notAuthorized">
+                <p>Du hast bisher keine Marketing Kampagnen berechnet.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row">
+                <div class="col-sm-2">
+                    <select class="custom-select" name="Function" @bind="this.PieCharType">
+                        <option value=@PieChartType.Input> Input </option>
+                        <option value=@PieChartType.Output> Output </option>
+                    </select>
+                </div>
+                <div class="col-sm-10">
+                    <button class="btn btn-primary" style="position: absolute; left: 10px;" @onclick="GeneratePieChart">Anzeigen</button>
+                </div>
+            </div>
+            if (this.PieCharType == PieChartType.Input)
+            {
+                <div class="row" id="charts">
+                    <div id="chartdiv1"></div>
+                </div>
+            }
+            else if (this.PieCharType == PieChartType.Output)
+            {
+                <div class="row" id="charts">
+                    <div id="chartdiv2"></div>
+                </div>
+            }
+
+
+
+
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="container" id="notAuthorized">
+            <p>Bitte melde dich an um M.A.R.S. zu nutzen.</p>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
+    private HttpClient Http;
+
+    private List<PieElementVM> PieElementsInput;
+    private List<PieElementVM> PieElementsOutput;
+
+    private PieChartType PieCharType;
+    //private readonly PieChartType Input = PieChartType.Input;
+    //private readonly PieChartType Output = PieChartType.Output;
+
+    private string CurrentUser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserName();
+        if (!string.IsNullOrEmpty(this.CurrentUser))
+        {
+            this.Http = new HttpClient();
+
+            this.PieElementsInput = await this.Http.GetJsonAsync<List<PieElementVM>>($"{NavManager.BaseUri}Campaign/{CurrentUser}/{PieChartType.Input}");
+
+            this.PieElementsOutput = await this.Http.GetJsonAsync<List<PieElementVM>>($"{NavManager.BaseUri}Campaign/{CurrentUser}/{PieChartType.Output}");
+        }
+    }
+
+    private async Task GetUserName()
+    {
+        var authState = await AuthenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            this.CurrentUser = user.Identity.Name;
+        }
+    }
+
+    private async Task GeneratePieChart()
+    {
+        switch (this.PieCharType)
+        {
+            case PieChartType.Input:
+                await this.JsRuntime.InvokeVoidAsync("GenerateInputPieChart", this.PieElementsInput);
+                break;
+
+            case PieChartType.Output:
+                await this.JsRuntime.InvokeVoidAsync("GenerateOutputPieChart", this.PieElementsOutput);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+}

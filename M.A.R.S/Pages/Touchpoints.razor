@@ -1,0 +1,232 @@
+﻿@page "/touchpoints"
+
+@using M.A.R.S.ViewModel
+
+@inject NavigationManager NavManager
+
+<style>
+    #header {
+        margin-bottom: 50px;
+    }
+
+    #cbRow {
+        margin: 10px;
+    }
+
+    #checkBoxes {
+        border: 2px solid lightgrey;
+        border-radius: 10px;
+    }
+
+    #footer {
+        position: absolute;
+        bottom: 0;
+    }
+    #notAuthorized {
+        top: 50%;
+        left: 50%;
+
+
+    }
+</style>
+
+<h3 id="header">Touchpoints</h3>
+<AuthorizeView>
+    <Authorized>
+        @if (this.DbWaiter)
+        {
+            <p>Loading...</p>
+        }
+        else
+        {
+            <div class="flex-sm-column" id="checkBoxes">
+                <div class="row" id="cbRow">
+
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPRadio" name="Radio" @bind-value="CampaignRequest.TPRadio" />
+                            <label for="cbTPRadio">Radio</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPTV" name="TV" @bind-value="CampaignRequest.TPTV" />
+                            <label for="cbTPTV">TV</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPPrint" name="Print" @bind-value="CampaignRequest.TPPrint" />
+                            <label for="cbTPPrint">Print</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPCoupon" name="Coupon" @bind-value="CampaignRequest.TPCoupon" />
+                            <label for="cbTPCoupon">Coupons</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPBanner" name="Banner" @bind-value="CampaignRequest.TPBanner" />
+                            <label for="cbTPBanner">Banner</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPSM" name="SM" @bind-value="CampaignRequest.TPSM" />
+                            <label for="cbTPSM">Social Media</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPEMail" name="EMail" @bind-value="CampaignRequest.TPEMail" />
+                            <label for="cbTPEMail">E-Mail</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPSEA" name="SEA" @bind-value="CampaignRequest.TPSEA" />
+                            <label for="cbTPSEA">Search Engine Advertising</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPWebsite" name="Website" checked="checked" disabled="disabled" @bind-value="CampaignRequest.TPWebsite" />
+                            <label for="cbTPWebsite">Website</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+                        <form>
+                            <input type="checkbox" id="cbTPShop" name="Shop" checked="checked" disabled="disabled" @bind-value="CampaignRequest.TPShop" />
+                            <label for="cbTPShop">Shop</label>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+
+                    </div>
+                </div>
+                <div class="row" id="cbRow">
+                    <div class="col-sm-4">
+
+                    </div>
+                    <div class="col-sm-8">
+                        <div>
+                            <button class="btn btn-primary" style="float:right" @onclick="NavigateToCampaign">Kampagne</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="container" id="notAuthorized">
+            <p>Bitte melde dich an um M.A.R.S. zu nutzen.</p>
+        </div>
+
+    </NotAuthorized>
+</AuthorizeView>
+
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
+    private HttpClient Http;
+
+    private CampaignRequestVM CampaignRequest;
+
+    private bool DbWaiter;
+
+    private string CurrentUser { get; set; }
+
+    protected override async void OnInitialized()
+    {
+        await GetUserName();
+        if(!string.IsNullOrEmpty(this.CurrentUser))
+        {
+            this.CampaignRequest = new CampaignRequestVM();
+            this.Http = new HttpClient();
+        }
+        this.DbWaiter = false;
+    }
+
+    private async Task GetUserName()
+    {
+        var authState = await AuthenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            this.CurrentUser = user.Identity.Name;
+        }
+    }
+
+    private async void NavigateToCampaign()
+    {
+
+        this.CampaignRequest.User = this.CurrentUser;
+        this.CampaignRequest.Date = DateTime.Now;
+        this.CampaignRequest.TPShop = true;
+        this.CampaignRequest.TPWebsite = true;
+
+        HttpResponseMessage response = await this.Http.PostAsJsonAsync<CampaignRequestVM>($"{NavManager.BaseUri}Request", this.CampaignRequest);
+
+        while (!response.IsSuccessStatusCode)
+        {
+            //Potential Deadlock
+            this.DbWaiter = true;
+        }
+        this.DbWaiter = false;
+        NavManager.NavigateTo("campaign");
+    }
+
+}

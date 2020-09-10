@@ -1,0 +1,127 @@
+﻿@*Seite auskommentiert und damit nicht erreichbar gemacht.*@
+
+@*@page "/charts"*@
+
+@using M.A.R.S.ViewModel
+@using M.A.R.S.PublicEnums
+
+@inject NavigationManager NavManager
+
+<style>
+    #notAuthorized {
+        top: 50%;
+        left: 50%;
+        margin-top: 50px;
+    }
+    #charts {
+        margin-top: 50px;
+    }
+</style>
+
+<h3 id="header">Charts</h3>
+
+<AuthorizeView>
+    <Authorized>
+        <!--Display PieCharts here!-->
+        @if (this.PieElementsInput == null && this.PieElementsOutput == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (this.PieElementsInput.Count < 1 && this.PieElementsOutput.Count < 1)
+        {
+            <div class="container" id="notAuthorized">
+                <p>Du hast bisher keine Marketing Kampagnen berechnet.</p>
+            </div>
+        }
+        else
+        {
+            <div class="row" id="charts">
+                <div class="col-sm-6">
+                    @* Telerik soll nicht mehr genutzt werden *@
+                    @*<TelerikChart>
+                        <ChartSeriesItems>
+                            <ChartSeries Type="ChartSeriesType.Pie"
+                                         Data="@this.PieElementsInput"
+                                         VisibleInLegendField="@nameof(PieElementVM.ShowInLegend)"
+                                         Field="@nameof(PieElementVM.Value)"
+                                         CategoryField="@nameof(PieElementVM.Name)"
+                                         Color="@nameof(PieElementVM.Color)">
+                                <ChartSeriesLabels Position="ChartSeriesLabelsPosition.OutsideEnd"
+                                                   Visible="true"
+                                                   Background="transparent"
+                                                   Template="#= dataItem.Name # - #= percentage*100 #%">
+                                </ChartSeriesLabels>
+                            </ChartSeries>
+                        </ChartSeriesItems>
+                        <ChartTitle Text="Budget"></ChartTitle>
+                        <ChartLegend Position="ChartLegendPosition.Bottom"></ChartLegend>
+                    </TelerikChart>
+                </div>
+                <div class="col-sm-6">
+                    <TelerikChart>
+                        <ChartSeriesItems>
+                            <ChartSeries Type="ChartSeriesType.Pie"
+                                         Data="@this.PieElementsOutput"
+                                         VisibleInLegendField="@nameof(PieElementVM.ShowInLegend)"
+                                         Field="@nameof(PieElementVM.Value)"
+                                         CategoryField="@nameof(PieElementVM.Name)"
+                                         Color="@nameof(PieElementVM.Color)">
+                                <ChartSeriesLabels Position="ChartSeriesLabelsPosition.OutsideEnd"
+                                                   Visible="true"
+                                                   Background="transparent"
+                                                   Template="#= dataItem.Name #">
+                                </ChartSeriesLabels>
+                            </ChartSeries>
+                        </ChartSeriesItems>
+                        <ChartTitle Text="Output"></ChartTitle>
+                        <ChartLegend Position="ChartLegendPosition.Bottom"></ChartLegend>
+                    </TelerikChart>*@
+                </div>
+            </div>
+        }
+    </Authorized>
+    <NotAuthorized>
+        <div class="container" id="notAuthorized">
+            <p>Bitte melde dich an um M.A.R.S. zu nutzen.</p>
+        </div>
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; }
+
+    private HttpClient Http;
+
+    private List<PieElementVM> PieElementsInput;
+    private List<PieElementVM> PieElementsOutput;
+
+    private string CurrentUser { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await GetUserName();
+        if (!string.IsNullOrEmpty(this.CurrentUser))
+        {
+            this.Http = new HttpClient();
+
+            this.PieElementsInput = await this.Http.GetJsonAsync<List<PieElementVM>>($"{NavManager.BaseUri}Campaign/{CurrentUser}/{PieChartType.Input}");
+
+            this.PieElementsOutput = await this.Http.GetJsonAsync<List<PieElementVM>>($"{NavManager.BaseUri}Campaign/{CurrentUser}/{PieChartType.Output}");
+
+        }
+    }
+
+    private async Task GetUserName()
+    {
+        var authState = await AuthenticationState;
+        var user = authState.User;
+
+        if (user.Identity.IsAuthenticated)
+        {
+            this.CurrentUser = user.Identity.Name;
+        }
+    }
+
+}
