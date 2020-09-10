@@ -26,7 +26,7 @@ using M.A.R.S.Calculators;
 namespace M.A.R.S
 {
     public class Startup
-    {
+    { 
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
