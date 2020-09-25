@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -10,6 +10,11 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200402140419_MyMigration4.cs" />
     <Compile Remove="Data\Migrations\20200402140419_MyMigration4.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\apple-touch-icon-precomposed.ico" />
+    <Content Remove="wwwroot\apple-touch-icon.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -34,6 +39,14 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\apple-touch-icon-precomposed.ico">
+      <PackagePath></PackagePath>
+      <Pack>True</Pack>
+    </None>
+    <None Include="wwwroot\apple-touch-icon.ico">
+      <PackagePath></PackagePath>
+      <Pack>True</Pack>
+    </None>
     <None Include="wwwroot\favicon.ico">
       <Pack>True</Pack>
       <PackagePath></PackagePath>
