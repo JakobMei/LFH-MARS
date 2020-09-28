@@ -12,8 +12,9 @@
     }
 
     #bt {
-        text-align: center;
-        width: 100%;
+        text-align: left;
+        width: auto;
+        margin: 5px;
     }
 </style>
 
@@ -33,144 +34,146 @@
         }
         else
         {
-            <body>
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>Touchpoint</th>
-                            <th class="text-center">TKP</th>
-                            <th class="text-center">CTR</th>
-                            <th class="text-center">CPC</th>
-                            <th class="text-center">BR</th>
-                            <th class="text-center">OR</th>
-                            <th class="text-center">OTS</th>
-                            <th class="text-center">CR</th>
-                            <th class="text-center">WAR</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>@Config.Radio.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Radio.TKP" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.TV.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.TV.TKP" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.TV.OTS" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.Print.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Print.TKP" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.Coupon.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Coupon.TKP" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Coupon.CTR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Coupon.CR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.Banner.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Banner.TKP" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Banner.CTR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.SM.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.SM.TKP" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.SM.CTR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.EMail.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.EMail.CTR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.EMail.BR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.EMail.OR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.SEA.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.SEA.CPC" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.Website.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Website.CTR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Website.BR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                        </tr>
-                        <tr>
-                            <td>@Config.Shop.Name</td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.CTR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.BR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.CR" /></td>
-                            <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.WAR" /></td>
-                        </tr>
-                        <tr>
-                            <td colspan="7">@this.InfoText</td>
-                            <td>
-                                <button class="btn btn-primary" id="bt" @onclick="GetStandardKPIs">Standardwerte</button>
-                            </td>
-                            <td>
-                                <button class="btn btn-primary" id="bt" @onclick="SaveKPIs">Speichern</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </body>
+    <body>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Touchpoint</th>
+                    <th class="text-center">TKP</th>
+                    <th class="text-center">CTR</th>
+                    <th class="text-center">CPC</th>
+                    <th class="text-center">BR</th>
+                    <th class="text-center">OR</th>
+                    <th class="text-center">OTS</th>
+                    <th class="text-center">CR</th>
+                    <th class="text-center">WAR</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Config.Radio.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Radio.TKP" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.TV.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.TV.TKP" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.TV.OTS" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.Print.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Print.TKP" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.Coupon.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Coupon.TKP" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Coupon.CTR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Coupon.CR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.Banner.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Banner.TKP" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Banner.CTR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.SM.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.SM.TKP" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.SM.CTR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.EMail.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.EMail.CTR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.EMail.BR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.EMail.OR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.SEA.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.SEA.CPC" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.Website.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Website.CTR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Website.BR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                </tr>
+                <tr>
+                    <td>@Config.Shop.Name</td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.CTR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.BR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" disabled /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.CR" /></td>
+                    <td><input type="number" step="0.01" class="form-control form-control-sm" @bind-value="Config.Shop.WAR" /></td>
+                </tr>
+                <!--<tr>
+                <td colspan="7">@this.InfoText</td>
+                  <td>
+                      <button class="btn btn-primary" id="bt" @onclick="GetStandardKPIs">Standardwerte</button>
+                  </td>
+                  <td>
+                      <button class="btn btn-primary" id="bt" @onclick="SaveKPIs">Speichern</button>
+                  </td>
+                </tr>-->
+            </tbody>
+        </table>
+        <button class="btn btn-primary" id="bt" @onclick="GetStandardKPIs">Standardwerte</button>
+        <button class="btn btn-primary" id="bt" @onclick="SaveKPIs">Speichern</button>
+    </body>
         }
     </Authorized>
     <NotAuthorized>
@@ -222,11 +225,9 @@
     {
         this.Config.User = this.CurrentUser;
         this.Response = await this.Http.PostAsJsonAsync<ConfigVM>($"{this.NavManager.BaseUri}KPIConfig", this.Config);
-        if(this.Response.IsSuccessStatusCode)
-        {
-            this.InfoText = "Speichern erfolgreich!";
-            await InvokeAsync(() => base.StateHasChanged());
-        }
+        this.InfoText = "Speichern erfolgreich!";
+        await InvokeAsync(() => base.StateHasChanged());
+
     }
 
     private async void GetMyKPIs()
