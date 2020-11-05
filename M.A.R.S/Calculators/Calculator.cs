@@ -117,6 +117,9 @@ namespace M.A.R.S.Calculators
                                          + configVM.SEA.OutputVisit
                                          + configVM.SM.OutputVisit 
                                          + configVM.TV.OutputVisit;
+
+            configVM.Website.OutputVisit = configVM.Website.OutputVisit * configVM.Website.BR * configVM.Website.CTR;
+
             configVM.Website.OutputAsString = String.Format("{0:0}", configVM.Website.OutputVisit);
 
             configVM.Shop.Conversions = configVM.Website.OutputVisit * configVM.Shop.BR * configVM.Shop.WAR * configVM.Shop.CTR;
