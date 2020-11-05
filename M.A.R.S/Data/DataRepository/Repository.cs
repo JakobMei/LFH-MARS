@@ -85,10 +85,10 @@ namespace M.A.R.S.Data.DataRepository
                         User = "admin@admin.com",
                         Date = DateTime.Now,
                         Radio_TKP = 1.98,
-                        TV_TKP = 37.96, //evtl auch 100, noch kein Antwort
+                        TV_TKP = 20,
                         TV_OTS = 1, //Default value missing
                         Print_TKP = 31.12,
-                        Coupon_TKP = 1, //Default value missing
+                        Coupon_TKP = 7.14,
                         Coupon_CTR = 0.02,
                         Coupon_CR = 0.029,
                         Banner_TKP = 25,
@@ -99,11 +99,11 @@ namespace M.A.R.S.Data.DataRepository
                         EMail_BR = 0.0337,
                         EMail_OR = 0.2656,
                         SEA_CPC = 4,
-                        Website_CTR = 1, //Default value missing
+                        Website_CTR = 0.0317,
                         Website_BR = 0.5,
-                        Shop_CTR = 1, //Default value missing
+                        Shop_CTR = 0.0317,
                         Shop_BR = 0.3,
-                        Shop_CR = 1, //Default value missing
+                        Shop_CR = 0.015,
                         Shop_WAR = 0.69,
                     };
 
@@ -117,10 +117,10 @@ namespace M.A.R.S.Data.DataRepository
                         User = username,
                         Date = DateTime.Now,
                         Radio_TKP = 1.98,
-                        TV_TKP = 37.96, //evtl auch 100, noch kein Antwort
+                        TV_TKP = 20,
                         TV_OTS = 1, //Default value missing
                         Print_TKP = 31.12,
-                        Coupon_TKP = 1, //Default value missing
+                        Coupon_TKP = 7.14,
                         Coupon_CTR = 0.02,
                         Coupon_CR = 0.029,
                         Banner_TKP = 25,
@@ -131,11 +131,11 @@ namespace M.A.R.S.Data.DataRepository
                         EMail_BR = 0.0337,
                         EMail_OR = 0.2656,
                         SEA_CPC = 4,
-                        Website_CTR = 1, //Default value missing
+                        Website_CTR = 0.0317,
                         Website_BR = 0.5,
-                        Shop_CTR = 1, //Default value missing
+                        Shop_CTR = 0.0317,
                         Shop_BR = 0.3,
-                        Shop_CR = 1, //Default value missing
+                        Shop_CR = 0.015,
                         Shop_WAR = 0.69,
                     };
 
