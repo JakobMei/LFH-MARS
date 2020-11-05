@@ -18,11 +18,12 @@ namespace M.A.R.S
             Options = optionsAccessor.Value;
         }
 
-        public AuthMessageSenderOptions Options { get; }
+        public AuthMessageSenderOptions Options {get;}
 
 
         public Task SendEmailAsync(string email, string subject, string message)
         {
+            Options.setStandardMARSAuthentication();
             return Execute(Options.SendGridKey, subject, message, email);
         }
 

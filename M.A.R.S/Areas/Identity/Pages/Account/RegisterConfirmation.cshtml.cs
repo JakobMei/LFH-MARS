@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
+using System;
 
 namespace M.A.R.S.Areas.Identity.Pages.Account
 {
@@ -42,7 +43,17 @@ namespace M.A.R.S.Areas.Identity.Pages.Account
 
             Email = email;
             // Once you add a real email sender, you should remove this code that lets you confirm the account
-            DisplayConfirmAccountLink = true;
+            DisplayConfirmAccountLink = false;
+            try
+            {
+                //Test if App is runnig local or on Azure 
+                String test = System.Environment.GetEnvironmentVariable("SendGridAPIKey");
+            }
+            catch(Exception e)
+            {
+                Console.WriteLine(e.Message);
+                DisplayConfirmAccountLink = true;
+            }
             if (DisplayConfirmAccountLink)
             {
                 var userId = await _userManager.GetUserIdAsync(user);

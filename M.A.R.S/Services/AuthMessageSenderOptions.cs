@@ -10,5 +10,11 @@ namespace M.A.R.S
         public string SendGridUser { get; set; }
         public string SendGridKey { get; set; }
 
+        public void setStandardMARSAuthentication()
+        {
+
+            SendGridUser = Environment.GetEnvironmentVariable("SendGridUserName");
+            SendGridUser = Environment.GetEnvironmentVariable("SendGridAPIKey");
+        }
     }
 }
