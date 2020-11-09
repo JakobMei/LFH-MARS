@@ -42,9 +42,8 @@ namespace M.A.R.S.Areas.Identity.Pages.Account
             }
 
             Email = email;
-            // Once you add a real email sender, you should remove this code that lets you confirm the account
             DisplayConfirmAccountLink = false;
-            //Test if App is runnig local or on Azure 
+            //Test if App is runnig local or on Azure => if SendGridUser is null, Localhost = true, else running on server
             String test = System.Environment.GetEnvironmentVariable("SendGridUser");
             if(test == null)
             {
