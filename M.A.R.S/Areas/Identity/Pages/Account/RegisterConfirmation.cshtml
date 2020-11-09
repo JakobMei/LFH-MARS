@@ -9,8 +9,8 @@
     if (@Model.DisplayConfirmAccountLink)
     {
     <p>
-        Für diese App ist derzeit kein echter E-Mail-Absender registriert, lesen sie folgende <a href="https://aka.ms/aspaccountconf">Dokumente</a> um zu erfahren, wie man einen echten E-Mail-Absender konfiguriert.
-        Normalerweise würde dies per E-Mail erfolgen: <a id="confirm-link" href="@Model.EmailConfirmationUrl">Klicken Sie hier, um Ihr Konto zu bestätigen</a>
+        Diese App läuft im Localhost, daher ist die Mail Authentifizierung hier deaktiviert.
+        <a id="confirm-link" href="@Model.EmailConfirmationUrl">Klicken Sie hier, um Ihr Konto zu bestätigen</a>
     </p>
     }
     else

@@ -21,6 +21,8 @@ using M.A.R.S.Factories;
 using M.A.R.S.Data.DataRepository;
 using M.A.R.S.Calculators.ICalculators;
 using M.A.R.S.Calculators;
+using Microsoft.AspNetCore.Identity.UI.Services;
+//using WebPWrecover.Services;
 
 
 namespace M.A.R.S
@@ -43,6 +45,10 @@ namespace M.A.R.S
                     Configuration.GetConnectionString("DefaultConnection")));
             services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddTransient<IEmailSender, EmailSender>();
+            services.Configure<AuthMessageSenderOptions>(Configuration);
+            
             services.AddRazorPages();
             services.AddServerSideBlazor();
             services.AddScoped<AuthenticationStateProvider, RevalidatingIdentityAuthenticationStateProvider<IdentityUser>>();
