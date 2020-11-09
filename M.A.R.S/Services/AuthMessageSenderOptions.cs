@@ -12,9 +12,14 @@ namespace M.A.R.S
 
         public void setStandardMARSAuthentication()
         {
-
-            SendGridUser = Environment.GetEnvironmentVariable("SendGridUserName");
-            SendGridUser = Environment.GetEnvironmentVariable("SendGridAPIKey");
+            SendGridUser = Environment.GetEnvironmentVariable("SendGridUser");
+            SendGridKey = Environment.GetEnvironmentVariable("SendGridKey");
+            if (SendGridKey == null && SendGridUser == null)
+            {
+                Console.WriteLine("Keine Env Variablen Verfügbar, MailService deaktiviert ");
+                SendGridUser = "error";
+                SendGridKey = "error";
+            }
         }
     }
 }

@@ -44,14 +44,10 @@ namespace M.A.R.S.Areas.Identity.Pages.Account
             Email = email;
             // Once you add a real email sender, you should remove this code that lets you confirm the account
             DisplayConfirmAccountLink = false;
-            try
+            //Test if App is runnig local or on Azure 
+            String test = System.Environment.GetEnvironmentVariable("SendGridUser");
+            if(test == null)
             {
-                //Test if App is runnig local or on Azure 
-                String test = System.Environment.GetEnvironmentVariable("SendGridAPIKey");
-            }
-            catch(Exception e)
-            {
-                Console.WriteLine(e.Message);
                 DisplayConfirmAccountLink = true;
             }
             if (DisplayConfirmAccountLink)
