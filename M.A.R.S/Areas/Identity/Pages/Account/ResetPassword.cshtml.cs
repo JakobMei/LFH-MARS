@@ -38,7 +38,7 @@ namespace M.A.R.S.Areas.Identity.Pages.Account
 
             [DataType(DataType.Password)]
             [Display(Name = "Passwort bestätigen")]
-            [Compare("Passwort", ErrorMessage = "Das Passwort und das Bestätigungspasswort stimmen nicht überein.")]
+            [Compare("Password", ErrorMessage = "Das Passwort und das Bestätigungspasswort stimmen nicht überein.")]
             public string ConfirmPassword { get; set; }
 
             public string Code { get; set; }
