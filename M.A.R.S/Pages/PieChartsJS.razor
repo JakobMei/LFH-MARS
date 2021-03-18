@@ -13,6 +13,24 @@
         margin-top: 50px;
     }
 
+    #info-card {
+        border: 2px solid lightgrey;
+        border-radius: 5%;
+        margin-right: 10%;
+        height: 70%;
+        width: 90%;
+        position: relative;
+        float:right;
+    }
+
+    #info-text {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 60px;
+        margin-right: 20px;
+        margin-left: 20px;
+    }
+
     #header {
         margin-bottom: 20px;
     }
@@ -49,17 +67,37 @@
         }
         else
         {
+
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-3">
                     <select class="custom-select" name="Function" @bind="this.PieCharType">
                         <option value=@PieChartType.Input> Input </option>
                         <option value=@PieChartType.Output> Output </option>
                     </select>
                 </div>
-                <div class="col-sm-10">
+                <div class="col col-lg-2">
                     <button class="btn btn-primary" style="position: absolute; left: 10px;" @onclick="GeneratePieChart">Anzeigen</button>
                 </div>
+
+                <div class="col">
+                    <div class="float-right">
+                        <div id="info-card">
+                            <div id="info-text">
+                                <center>
+                                    <p>
+                                        Input - &nbsp;  grafische Darstellung der eingeführten Verteilungen aus der Kampagne
+                                    </p>
+                                    <p>
+
+                                        Output - grafische Darstellung der Ausgabe, basierend auf dem Input
+                                    </p>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
             if (this.PieCharType == PieChartType.Input)
             {
                 <div class="row" id="charts">
@@ -72,6 +110,7 @@
                     <div id="chartdiv2"></div>
                 </div>
             }
+
 
 
 
