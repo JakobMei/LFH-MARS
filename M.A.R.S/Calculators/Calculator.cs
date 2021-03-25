@@ -118,11 +118,11 @@ namespace M.A.R.S.Calculators
                                          + configVM.SM.OutputVisit 
                                          + configVM.TV.OutputVisit;
 
-            configVM.Website.OutputVisit = configVM.Website.OutputVisit * configVM.Website.BR * configVM.Website.CTR;
+            configVM.Website.OutputVisit = configVM.Website.OutputVisit * (1 - configVM.Website.BR) * configVM.Website.CTR;
 
             configVM.Website.OutputAsString = String.Format("{0:0}", configVM.Website.OutputVisit);
 
-            configVM.Shop.Conversions = configVM.Website.OutputVisit * configVM.Shop.BR * configVM.Shop.WAR * configVM.Shop.CTR;
+            configVM.Shop.Conversions = configVM.Website.OutputVisit * (1 - configVM.Shop.BR) * (1 - configVM.Shop.WAR) * configVM.Shop.CTR;
             configVM.Shop.ConversionsAsString = String.Format("{0:0}", configVM.Shop.Conversions);
 
             return configVM;
