@@ -103,7 +103,7 @@ namespace M.A.R.S.Areas.Identity.Pages.Account.Manage
                     "Bestätigen Sie Ihre E-Mail",
                     $"Bitte bestätigen Sie Ihr Konto durch <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>hier klicken</a>.");
 
-                StatusMessage = "Bestätigungslink zur Änderung wurd versendet. Bitte überprüfen Sie Ihre E-Mail";
+                StatusMessage = "Bestätigungslink zur Änderung wurde versendet. Bitte überprüfen Sie Ihre E-Mail";
                 return RedirectToPage();
             }
 

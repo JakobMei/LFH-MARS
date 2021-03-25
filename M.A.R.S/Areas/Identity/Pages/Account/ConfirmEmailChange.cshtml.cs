@@ -38,8 +38,7 @@ namespace M.A.R.S.Areas.Identity.Pages.Account
             {
                 return NotFound($"Benutzer mit der ID '{userId}' kann nicht geladen werden.");
             }
-
-            code = Encoding.UTF8.GetString(WebEncoders.Base64UrlDecode(code));
+            
             var result = await _userManager.ChangeEmailAsync(user, email, code);
             if (!result.Succeeded)
             {
