@@ -32,7 +32,7 @@ namespace M.A.R.S.Calculators
         
         public ConfigVM CalcEMail(ConfigVM configVM)
         {
-            configVM.EMail.OutputVisit = (configVM.EMail.InputBudget / 0.0072) * (100 - configVM.EMail.BR) * configVM.EMail.OR * configVM.EMail.CTR;
+            configVM.EMail.OutputVisit = (configVM.EMail.InputBudget / 0.0072) * (1 - configVM.EMail.BR) * configVM.EMail.OR * configVM.EMail.CTR;
             configVM.EMail.OutputAsString = String.Format("{0:0}", configVM.EMail.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
