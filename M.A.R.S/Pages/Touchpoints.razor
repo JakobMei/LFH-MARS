@@ -39,7 +39,6 @@
         }
         else
         {
-            @*<div class="@((string.IsNullOrEmpty(ErrorMessage)? "hide-errors" : ""))">*@
                 <div class="flex-sm-column" id="checkBoxes">
                     <div class="row" id="cbRow">
 
@@ -195,31 +194,17 @@
         if (!string.IsNullOrEmpty(this.CurrentUser))
         {
             this.DbWaiter = true;
-            //this.CampaignRequest = new CampaignRequestVM();
             this.Http = new HttpClient();
-
-            Console.WriteLine("Jetzt wird onInitialized geladen");
 
             try
             {
-                //this.CampaignRequest = new CampaignRequestVM();
                 this.CampaignRequest = await this.Http.GetJsonAsync<CampaignRequestVM>($"{NavManager.BaseUri}Request/{CurrentUser}");
-                //this.CampaignRequest = test;
-                Console.WriteLine(this.CampaignRequest.Id);
             }
             catch (Exception e)
             {
                 Console.WriteLine("Fehler: " + e);
                 this.CampaignRequest = new CampaignRequestVM();
             }
-
-            if (this.CampaignRequest == null) {
-                this.CampaignRequest = new CampaignRequestVM();
-            }
-
-            Console.WriteLine("This is the end of onInitialized");
-
-            //Console.WriteLine(this.CampaignRequest.TPBanner);
         }
         this.DbWaiter = false;
         this.StateHasChanged();
@@ -238,18 +223,18 @@
 
     private async void NavigateToCampaign()
     {
-        Console.WriteLine("Navigiere zu naechster seite");
+        //Die nächsten paar Zeilen vermeiden einen Fehler beim Übertragen der ID vom einen CR auf den anderen, da stört sich SQL sonst
         CampaignRequestVM ctr = this.CampaignRequest;
         this.CampaignRequest = new CampaignRequestVM();
 
-        this.CampaignRequest.TPBanner = ctr.TPBanner;
-        this.CampaignRequest.TPCoupon = ctr.TPCoupon;
-        this.CampaignRequest.TPEMail = ctr.TPEMail;
-        this.CampaignRequest.TPPrint = ctr.TPPrint;
         this.CampaignRequest.TPRadio = ctr.TPRadio;
         this.CampaignRequest.TPTV = ctr.TPTV;
-        this.CampaignRequest.TPSEA = ctr.TPSEA;
+        this.CampaignRequest.TPPrint = ctr.TPPrint;
+        this.CampaignRequest.TPCoupon = ctr.TPCoupon;
+        this.CampaignRequest.TPBanner = ctr.TPBanner;
         this.CampaignRequest.TPSM = ctr.TPSM;
+        this.CampaignRequest.TPEMail = ctr.TPEMail;
+        this.CampaignRequest.TPSEA = ctr.TPSEA;
 
         this.CampaignRequest.User = this.CurrentUser;
         this.CampaignRequest.Date = DateTime.Now;
@@ -268,41 +253,11 @@
         NavManager.NavigateTo("campaign");
     }
 
-    private HttpResponseMessage Response;
-
-    private async void SaveCampaign()
-    {
-        this.CampaignRequest.User = this.CurrentUser;
-        HttpResponseMessage response = await this.Http.PostAsJsonAsync<CampaignRequestVM>($"{this.NavManager.BaseUri}Touchpoints", this.CampaignRequest);
-        //this.InfoText = "Speichern erfolgreich!";
-        await InvokeAsync(() => base.StateHasChanged());
-    }
-
-    private void ToggleBanner()
-    {
-        CampaignRequest.TPBanner = !CampaignRequest.TPBanner;
-    }
-
-    private void ToggleCoupon()
-    {
-        CampaignRequest.TPCoupon = !CampaignRequest.TPCoupon;
-    }
-
-    private void ToggleEMail()
-    {
-        CampaignRequest.TPEMail = !CampaignRequest.TPEMail;
-    }
-
-
-    private void TogglePrint()
-    {
-        CampaignRequest.TPPrint = !CampaignRequest.TPPrint;
-    }
+    //private HttpResponseMessage Response; //Zweck unbekannt?
 
     private void ToggleRadio()
     {
         CampaignRequest.TPRadio = !CampaignRequest.TPRadio;
-        Console.WriteLine(CampaignRequest.TPRadio);
     }
 
     private void ToggleTV()
@@ -310,14 +265,33 @@
         CampaignRequest.TPTV = !CampaignRequest.TPTV;
     }
 
+    private void TogglePrint()
+    {
+        CampaignRequest.TPPrint = !CampaignRequest.TPPrint;
+    }
+
+    private void ToggleCoupon()
+    {
+        CampaignRequest.TPCoupon = !CampaignRequest.TPCoupon;
+    }
+
+    private void ToggleBanner()
+    {
+        CampaignRequest.TPBanner = !CampaignRequest.TPBanner;
+    }
+
     private void ToggleSM()
     {
         CampaignRequest.TPSM = !CampaignRequest.TPSM;
+    }
+
+    private void ToggleEMail()
+    {
+        CampaignRequest.TPEMail = !CampaignRequest.TPEMail;
     }
 
     private void ToggleSEA()
     {
         CampaignRequest.TPSEA = !CampaignRequest.TPSEA;
     }
-
 }
