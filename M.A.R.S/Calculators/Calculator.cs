@@ -11,7 +11,7 @@ namespace M.A.R.S.Calculators
     {
         public ConfigVM CalcBanner(ConfigVM configVM)
         {
-            configVM.Banner.OutputVisit = ((configVM.Banner.InputBudget / configVM.Banner.TKP) * 1000) * configVM.Banner.CTR;
+            configVM.Banner.OutputVisit = (configVM.Banner.InputBudget / configVM.Banner.TKP * (1 + ((Math.Pow(configVM.Banner.InputBudget, 0.75))-100)/1000)) * 1000 * configVM.Banner.CTR;
             configVM.Banner.OutputAsString = String.Format("{0:0}", configVM.Banner.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
@@ -21,7 +21,7 @@ namespace M.A.R.S.Calculators
 
         public ConfigVM CalcCoupon(ConfigVM configVM)
         {
-            configVM.Coupon.OutputVisit = (((configVM.Coupon.InputBudget / configVM.Coupon.TKP) * 1000) * configVM.Coupon.CTR) * configVM.Coupon.CR;
+            configVM.Coupon.OutputVisit = (((configVM.Coupon.InputBudget / configVM.Coupon.TKP*(1+((Math.Pow(configVM.Coupon.InputBudget,0.65)-100/1000) * 1000))) * configVM.Coupon.CTR) * configVM.Coupon.CR);
             configVM.Coupon.OutputAsString = String.Format("{0:0}", configVM.Coupon.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
@@ -32,7 +32,7 @@ namespace M.A.R.S.Calculators
         
         public ConfigVM CalcEMail(ConfigVM configVM)
         {
-            configVM.EMail.OutputVisit = (configVM.EMail.InputBudget / 0.0072) * (1 - configVM.EMail.BR) * configVM.EMail.OR * configVM.EMail.CTR;
+            configVM.EMail.OutputVisit = (Math.Pow(configVM.EMail.InputBudget,0.4) / 0.0072) * (1 - configVM.EMail.BR) * configVM.EMail.OR * configVM.EMail.CTR;
             configVM.EMail.OutputAsString = String.Format("{0:0}", configVM.EMail.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
@@ -42,7 +42,7 @@ namespace M.A.R.S.Calculators
 
         public ConfigVM CalcPrint(ConfigVM configVM)
         {
-            configVM.Print.OutputVisit = (configVM.Print.InputBudget / configVM.Print.TKP) * 1000;
+            configVM.Print.OutputVisit = (configVM.Print.InputBudget / configVM.Print.TKP*1+((Math.Pow(configVM.Print.InputBudget,0.7)-100)/1000)) * 1000;
             configVM.Print.OutputAsString = String.Format("{0:0}", configVM.Print.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
@@ -53,7 +53,7 @@ namespace M.A.R.S.Calculators
         public ConfigVM CalcRadio(ConfigVM configVM)
         {
 
-            configVM.Radio.OutputVisit = (configVM.Radio.InputBudget / configVM.Radio.TKP) * 1000;
+            configVM.Radio.OutputVisit = (configVM.Radio.InputBudget / configVM.Radio.TKP*(1+((Math.Pow(configVM.Radio.InputBudget,0.95)-100)/1000))) * 1000;
             configVM.Radio.OutputAsString = String.Format("{0:0}", configVM.Radio.OutputVisit);
             
             configVM = CalcWebsiteAndShop(configVM);
@@ -63,7 +63,7 @@ namespace M.A.R.S.Calculators
 
         public ConfigVM CalcSEA(ConfigVM configVM)
         {
-            configVM.SEA.OutputVisit = (configVM.SEA.InputBudget / configVM.SEA.CPC);
+            configVM.SEA.OutputVisit = (Math.Pow(configVM.SEA.InputBudget,0.6) / configVM.SEA.CPC);
             configVM.SEA.OutputAsString = String.Format("{0:0}", configVM.SEA.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
@@ -89,7 +89,7 @@ namespace M.A.R.S.Calculators
 
         public ConfigVM CalcSM(ConfigVM configVM)
         {
-            configVM.SM.OutputVisit = ((configVM.SM.InputBudget / configVM.SM.TKP) * 1000) * configVM.SM.CTR;
+            configVM.SM.OutputVisit = ((configVM.SM.InputBudget / configVM.SM.TKP*(1+((Math.Pow(configVM.SM.InputBudget,0.8)-100/1000)))) * 1000) * configVM.SM.CTR;
             configVM.SM.OutputAsString = String.Format("{0:0}", configVM.SM.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
@@ -99,7 +99,7 @@ namespace M.A.R.S.Calculators
 
         public ConfigVM CalcTV(ConfigVM configVM)
         {
-            configVM.TV.OutputVisit = ((configVM.TV.InputBudget / configVM.TV.TKP) * 1000) / configVM.TV.OTS;
+            configVM.TV.OutputVisit = ((configVM.TV.InputBudget / configVM.TV.TKP*(1+((Math.Pow(configVM.TV.InputBudget,0.85)-100)/1000))) * 1000) / configVM.TV.OTS;
             configVM.TV.OutputAsString = String.Format("{0:0}", configVM.TV.OutputVisit);
 
             configVM = CalcWebsiteAndShop(configVM);
